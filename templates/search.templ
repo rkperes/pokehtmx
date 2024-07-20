@@ -3,27 +3,21 @@ package templates
 templ SearchAndResults() {
 	<div>
 		@Search("Pikachu")
-		@SearchResultsDisplay([]SearchResult{
-			{
-				Name:      "Pikachu",
-				SpriteURL: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png",
-			},
+		@SearchResultDisplay(SearchResult{
+			Name:      "Pikachu",
+			SpriteURL: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png",
 		})
 	</div>
 }
 
 templ Search(initialValue string) {
 	<div>
-		<input id="search" type="text" value={ initialValue }/>
-		<button
-			type="button"
-			hx-post="/search"
-			hx-trigger="click"
-			hx-target="#search-results"
-			hx-swap="outerHTML"
-		>
-			Search
-		</button>
+		<form hx-post="/search" hx-trigger="submit" hx-target="#search-result" hx-swap="outerHTML">
+			<input type="text" name="pokemon" value={ initialValue }/>
+			<button>
+				Search
+			</button>
+		</form>
 	</div>
 }
 
@@ -32,16 +26,8 @@ type SearchResult struct {
 	SpriteURL string
 }
 
-templ SearchResultsDisplay(results []SearchResult) {
-	<div id="search-results">
-		for _, result := range results {
-			@SearchResultDisplay(result)
-		}
-	</div>
-}
-
 templ SearchResultDisplay(r SearchResult) {
-	<div>
+	<div id="search-result">
 		<p>{ r.Name }</p>
 		<img src={ r.SpriteURL } alt={ r.Name }/>
 	</div>
