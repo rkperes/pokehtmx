@@ -26,14 +26,14 @@ func Header(title string) templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<head><style>\n\t\t\tbody {\n\t\t\t\tfont-family: Courier New, monospace;\n\t\t\t\tbackground-color: #222;\n\t\t\t\tcolor: #eee;\n\t\t\t}\n\t\t</style><script src=\"https://unpkg.com/htmx.org@2.0.1\"></script><title>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<head><style>\n\t\t\tbody {\n\t\t\t\tfont-family: Courier New, monospace;\n\t\t\t\tbackground-color: #222;\n\t\t\t\tcolor: #eee;\n\t\t\t}\n\t\t</style><script src=\"https://unpkg.com/htmx.org@2.0.1\"></script><script src=\"https://unpkg.com/htmx-ext-response-targets@2.0.0/response-targets.js\"></script><title>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var2 string
 		templ_7745c5c3_Var2, templ_7745c5c3_Err = templ.JoinStringErrs(title)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `templates/index.templ`, Line: 13, Col: 16}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `templates/index.templ`, Line: 14, Col: 16}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var2))
 		if templ_7745c5c3_Err != nil {
@@ -77,7 +77,7 @@ func Index() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = SearchAndResults().Render(ctx, templ_7745c5c3_Buffer)
+		templ_7745c5c3_Err = Search().Render(ctx, templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

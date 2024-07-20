@@ -1,29 +1,25 @@
 package templates
 
-templ SearchAndResults() {
-	<div>
-		@Search("Pikachu")
+templ Search() {
+	<div hx-ext="response-targets">
+		<input
+			class="form-control"
+			type="search"
+			name="pokemon"
+			value="Pikachu"
+			placeholder="Search by exact name or ID"
+			hx-post="/search"
+			hx-trigger="input changed delay:500ms, search"
+			hx-target="#search-result"
+			hx-target-error="#search-error"
+			hx-indicator=".htmx-indicator"
+			hx-swap="outterHTML"
+		/>
 		@SearchResultDisplay(SearchResult{
 			Id:        "025",
 			Name:      "Pikachu",
 			SpriteURL: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png",
 		})
-	</div>
-}
-
-templ Search(initialValue string) {
-	<div>
-		<input
-			class="form-control"
-			type="search"
-			name="pokemon"
-			value={ initialValue }
-			placeholder="Search by exact name or ID"
-			hx-post="/search"
-			hx-trigger="input changed delay:500ms, search"
-			hx-target="#search-result"
-			hx-indicator=".htmx-indicator"
-		/>
 	</div>
 }
 
@@ -35,11 +31,10 @@ type SearchResult struct {
 
 templ SearchResultDisplay(r SearchResult) {
 	<div id="search-result">
-		if r.Id == "" {
-			<p>No results found</p>
-		} else {
+		<div id="search-error"></div>
+		<div id="search-success">
 			<p>{ r.Id } - { r.Name }</p>
 			<img src={ r.SpriteURL } alt={ r.Name }/>
-		}
+		</div>
 	</div>
 }

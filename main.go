@@ -52,20 +52,25 @@ func searchHandler(w http.ResponseWriter, r *http.Request) {
 	resp, err := http.Get(u)
 	if err != nil {
 		slog.Error(fmt.Sprintf("pokeapi search: %v", err), slog.String("url", u))
-		w.WriteHeader(http.StatusInternalServerError)
+		http.Error(w, "Something went wrong", http.StatusInternalServerError)
 		return
 	}
 
+	if resp.StatusCode == http.StatusNotFound {
+		slog.Warn("pokeapi not found", slog.String("url", u))
+		http.Error(w, "Pokemon not found", http.StatusNotFound)
+		return
+	}
 	if resp.StatusCode != http.StatusOK {
-		slog.Warn(fmt.Sprintf("pokeapi not found: %v", err), slog.String("url", u))
-		w.WriteHeader(http.StatusNotFound)
+		slog.Error(fmt.Sprintf("pokeapi error: %v", err), slog.String("url", u))
+		http.Error(w, "Something went wrong", http.StatusInternalServerError)
 		return
 	}
 
 	var pokeapiResp pokepapiSearchPokemonResponse
 	if err := json.NewDecoder(resp.Body).Decode(&pokeapiResp); err != nil {
 		slog.Error(fmt.Sprintf("pokeapi unmarshal: %v", err), slog.String("url", u))
-		w.WriteHeader(http.StatusInternalServerError)
+		http.Error(w, "Something went wrong", http.StatusInternalServerError)
 		return
 	}
 
