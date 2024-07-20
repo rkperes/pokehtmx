@@ -1,0 +1,48 @@
+package templates
+
+templ SearchAndResults() {
+	<div>
+		@Search("Pikachu")
+		@SearchResultsDisplay([]SearchResult{
+			{
+				Name:      "Pikachu",
+				SpriteURL: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png",
+			},
+		})
+	</div>
+}
+
+templ Search(initialValue string) {
+	<div>
+		<input id="search" type="text" value={ initialValue }/>
+		<button
+			type="button"
+			hx-post="/search"
+			hx-trigger="click"
+			hx-target="#search-results"
+			hx-swap="outerHTML"
+		>
+			Search
+		</button>
+	</div>
+}
+
+type SearchResult struct {
+	Name      string
+	SpriteURL string
+}
+
+templ SearchResultsDisplay(results []SearchResult) {
+	<div id="search-results">
+		for _, result := range results {
+			@SearchResultDisplay(result)
+		}
+	</div>
+}
+
+templ SearchResultDisplay(r SearchResult) {
+	<div>
+		<p>{ r.Name }</p>
+		<img src={ r.SpriteURL } alt={ r.Name }/>
+	</div>
+}

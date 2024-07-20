@@ -5,9 +5,11 @@ templ Header(title string) {
 		<style>
 			body {
 				font-family: Arial, sans-serif;
-				color: #000;
+				background-color: #222;
+				color: #eee;
 			}
 		</style>
+		<script src="https://unpkg.com/htmx.org@2.0.1"></script>
 		<title>{ title }</title>
 	</head>
 }
@@ -17,6 +19,7 @@ templ Index() {
 		@Header("Home")
 		<body>
 			<p>Welcome</p>
+			@SearchAndResults()
 		</body>
 	</html>
 }
