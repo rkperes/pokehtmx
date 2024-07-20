@@ -13,12 +13,17 @@ templ SearchAndResults() {
 
 templ Search(initialValue string) {
 	<div>
-		<form hx-post="/search" hx-trigger="submit" hx-target="#search-result" hx-swap="outerHTML">
-			<input type="text" name="pokemon" value={ initialValue }/>
-			<button>
-				Search
-			</button>
-		</form>
+		<input
+			class="form-control"
+			type="search"
+			name="pokemon"
+			value={ initialValue }
+			placeholder="Search by exact name or ID"
+			hx-post="/search"
+			hx-trigger="input changed delay:500ms, search"
+			hx-target="#search-result"
+			hx-indicator=".htmx-indicator"
+		/>
 	</div>
 }
 
@@ -30,7 +35,11 @@ type SearchResult struct {
 
 templ SearchResultDisplay(r SearchResult) {
 	<div id="search-result">
-		<p>{ r.Id } - { r.Name }</p>
-		<img src={ r.SpriteURL } alt={ r.Name }/>
+		if r.Id == "" {
+			<p>No results found</p>
+		} else {
+			<p>{ r.Id } - { r.Name }</p>
+			<img src={ r.SpriteURL } alt={ r.Name }/>
+		}
 	</div>
 }
