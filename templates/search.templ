@@ -4,6 +4,7 @@ templ SearchAndResults() {
 	<div>
 		@Search("Pikachu")
 		@SearchResultDisplay(SearchResult{
+			Id:        "025",
 			Name:      "Pikachu",
 			SpriteURL: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png",
 		})
@@ -22,13 +23,14 @@ templ Search(initialValue string) {
 }
 
 type SearchResult struct {
+	Id        string
 	Name      string
 	SpriteURL string
 }
 
 templ SearchResultDisplay(r SearchResult) {
 	<div id="search-result">
-		<p>{ r.Name }</p>
+		<p>{ r.Id } - { r.Name }</p>
 		<img src={ r.SpriteURL } alt={ r.Name }/>
 	</div>
 }

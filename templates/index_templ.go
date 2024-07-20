@@ -26,7 +26,7 @@ func Header(title string) templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<head><style>\n\t\t\tbody {\n\t\t\t\tfont-family: Arial, sans-serif;\n\t\t\t\tbackground-color: #222;\n\t\t\t\tcolor: #eee;\n\t\t\t}\n\t\t</style><script src=\"https://unpkg.com/htmx.org@2.0.1\"></script><title>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<head><style>\n\t\t\tbody {\n\t\t\t\tfont-family: Courier New, monospace;\n\t\t\t\tbackground-color: #222;\n\t\t\t\tcolor: #eee;\n\t\t\t}\n\t\t</style><script src=\"https://unpkg.com/htmx.org@2.0.1\"></script><title>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

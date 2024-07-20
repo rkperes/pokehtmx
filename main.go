@@ -10,6 +10,8 @@ import (
 
 	"github.com/a-h/templ"
 	"github.com/rkperes/pokehtmx/templates"
+	"golang.org/x/text/cases"
+	"golang.org/x/text/language"
 )
 
 func main() {
@@ -29,6 +31,7 @@ func main() {
 const pokeapiSearchPokemon = "https://pokeapi.co/api/v2/pokemon"
 
 type pokepapiSearchPokemonResponse struct {
+	Id      int            `json:"id"`
 	Name    string         `json:"name"`
 	Sprites pokeapiSprites `json:"sprites"`
 }
@@ -67,7 +70,8 @@ func searchHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	component := templates.SearchResultDisplay(templates.SearchResult{
-		Name:      pokeapiResp.Name,
+		Id:        fmt.Sprintf("%03d", pokeapiResp.Id),
+		Name:      cases.Title(language.English).String(pokeapiResp.Name),
 		SpriteURL: pokeapiResp.Sprites.FrontDefault,
 	})
 
